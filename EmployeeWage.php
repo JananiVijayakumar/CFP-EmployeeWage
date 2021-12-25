@@ -7,38 +7,46 @@
  */
 class EmployeeWage
 {
-    private $IS_PRESENT = 1;
     public $IS_FULL_TIMER = 1;
     public $IS_PART_TIMER = 2;
+    public $WORKING_DAYS_PER_MONTH = 20;
+    public $WORKING_HOUR_PER_MONTH = 100;
     public $wagePerHour = 20;
+    public $totalEmpWorkingHour = 0;
+    public $EmpWorkingHour = 0;
+    public $totalEmpWorkingDays = 0;
     public $fullTimeEmpWorkingHour = 8;
     public $partTimeEmpWorkingHour = 8;
-    public $workingDaysPerMonth = 20;
     function calculateEmployeeWage()
     {
-        $empCheck = rand(0, 1);
-        echo "Employee Attendance : $empCheck";
-        switch ($empCheck == $this->IS_PRESENT) {
-            case $this->IS_FULL_TIMER:
-                echo "\n Employee is Present";
-                $fullTimeEmpWagePerDay = $this->wagePerHour * $this->fullTimeEmpWorkingHour;
-                echo "\n Full time Employee Daily Wage is : $fullTimeEmpWagePerDay";
-                $totalWagePerMonth = $this->workingDaysPerMonth * $fullTimeEmpWagePerDay;
-                echo "\n Full time Employee Monthly Wage is : $totalWagePerMonth";
-                break;
-            case $this->IS_PART_TIMER:
-                echo "\n Employee is Present";
-                $partTimeEmpWagePerDay = $this->wagePerHour * $this->partTimeEmpWorkingHour;
-                echo "\n Part time Employee Daily Wage is : $partTimeEmpWagePerDay";
-                $totalWagePerMonth = $this->workingDaysPerMonth * $partTimeEmpWagePerDay;
-                echo "\n Part time Employee Monthly Wage is : $totalWagePerMonth";
-                break;
-            default:
-                echo "\n Employee is Absent";
-                echo "\n Employee Monthly Wage is : 0";
-                break;
+        for ($i = 0; $i < $this->WORKING_DAYS_PER_MONTH; $i++) {
+            while ($this->totalEmpWorkingHour <= $this->WORKING_HOUR_PER_MONTH || $this->totalEmpWorkingDays < $this->WORKING_DAYS_PER_MONTH) {
+                $this->totalEmpWorkingDays++;
+                $empCheck = rand(0, 1);
+                echo "\nEmployee Attendance : $empCheck";
+                switch ($empCheck) {
+                    case $this->IS_FULL_TIMER:
+                        echo "\n Employee is Present";
+                        $empHour = 8;
+                        break;
+                    case $this->IS_PART_TIMER:
+                        echo "\n Employee is Present";
+                        $empHour = 4;
+                        break;
+                    default:
+                        echo "\n Employee is Absent";
+                        $empHour = 0;
+                        echo "\n Employee Monthly Wage is : 0";
+                        break;
+                }
+                $this->totalEmpWorkingHour += $empHour;
+                echo "\nEmployee Working Day : " . $this->totalEmpWorkingDays;
+                echo "\nEmployee Hours :" . $empHour;
+                $totalEmpwage = $this->totalEmpWorkingHour * $this->wagePerHour;
+                echo "\nTotal Employee Wage :" . $totalEmpwage;
+            }
         }
     }
 }
-$obj = new EmployeeWage();
-$obj->calculateEmployeeWage();
+$empWage = new EmployeeWage();
+$empWage->calculateEmployeeWage();
