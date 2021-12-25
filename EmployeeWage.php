@@ -17,7 +17,7 @@ class EmployeeWage
     public $totalEmpWorkingDays = 0;
     public $fullTimeEmpWorkingHour = 8;
     public $partTimeEmpWorkingHour = 8;
-    function calculateEmployeeWage()
+    function calculateEmployeeWage($companyName, $workingHours, $WorkingDays)
     {
         for ($i = 0; $i < $this->WORKING_DAYS_PER_MONTH; $i++) {
             while ($this->totalEmpWorkingHour <= $this->WORKING_HOUR_PER_MONTH || $this->totalEmpWorkingDays < $this->WORKING_DAYS_PER_MONTH) {
@@ -44,9 +44,11 @@ class EmployeeWage
                 echo "\nEmployee Hours :" . $empHour;
                 $totalEmpwage = $this->totalEmpWorkingHour * $this->wagePerHour;
                 echo "\nTotal Employee Wage :" . $totalEmpwage;
+                $multipleCompanyDetails = array("Comapany Name :" . $companyName, "Total Working Hours :" . $workingHours, "Total Working Days :" . $i, "Total Wage :" . $totalEmpwage);
+                print_r($multipleCompanyDetails);
             }
         }
     }
 }
 $empWage = new EmployeeWage();
-$empWage->calculateEmployeeWage();
+$empWage->calculateEmployeeWage("TATA", "8", "22");
